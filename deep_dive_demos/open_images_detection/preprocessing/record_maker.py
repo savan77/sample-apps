@@ -83,7 +83,7 @@ if __name__ == "__main__":
     points = load_points(points_file)
     with_class_num = generate_class_num(points, trainable_classes_file)
     writer = tf.python_io.TFRecordWriter(record_save_path)
-    for point in tqdm(points, desc="writing to file"):
+    for point in tqdm(with_class_num, desc="writing to file"):
         record = group_to_tf_record(point, saved_images_directory)
         if record:
             serialized = record.SerializeToString()
