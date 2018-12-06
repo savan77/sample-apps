@@ -11,10 +11,10 @@ from tqdm import tqdm
 def format_annotations(annotations_path, trainable_classes_path):
     annotations = []
     ids = []
-    with open(trainable_classes_path, 'rb') as file:
+    with open(trainable_classes_path, 'r') as file:
         trainable_classes = file.read().split('\n')
 
-    with open(annotations_path, 'rb') as annofile:
+    with open(annotations_path, 'r') as annofile:
         for row in csv.reader(annofile):
             if row[2] in trainable_classes:
                 annotation = {'id': row[0], 'label': row[2], 'confidence': row[3], 'x0': row[4],
@@ -33,7 +33,7 @@ def dedupe(seq):
 
 def format_images(images_path):
     images = []
-    with open(images_path, 'rb') as f:
+    with open(images_path, 'r') as f:
         reader = csv.reader(f)
         dataset = list(reader)
         for row in tqdm(dataset, desc="reformatting image data"):
