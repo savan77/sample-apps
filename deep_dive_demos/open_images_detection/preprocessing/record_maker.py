@@ -8,9 +8,9 @@ import argparse
 from tqdm import tqdm
 
 
-def generate_class_num(points):
+def generate_class_num(points, trainable_classes_file):
     output = []
-    with open(trainable_classes_file, 'rb') as file:
+    with open(trainable_classes_file, 'r') as file:
         trainable_classes = file.read().split('\n')
     for point in tqdm(points):
         for anno in point['annotations']:
@@ -81,7 +81,7 @@ if __name__ == "__main__":
     points_file = args.points_file_path
     saved_images_directory = args.saved_images_directory
     points = load_points(points_file)
-    with_class_num = generate_class_num(points)
+    with_class_num = generate_class_num(points, trainable_classes_file)
     writer = tf.python_io.TFRecordWriter(record_save_path)
     for point in tqdm(points, desc="writing to file"):
         record = group_to_tf_record(point, saved_images_directory)
