@@ -29,7 +29,7 @@ def group_to_tf_record(point, image_directory):
     ymaxs = []
     class_nums = []
     class_ids = []
-    image_id = point[0]['id']
+    image_id = point['id']
     filename = os.path.join(image_directory, image_id + '.jpg').decode()
     try:
         image = Image.open(filename)
